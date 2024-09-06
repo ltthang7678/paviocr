@@ -16,6 +16,19 @@ def add_noise(image, noise_level):
     
     return noisy_image
 
+def generate_random_background_color():
+    """Tạo màu nền ngẫu nhiên từ xám nhạt đến vàng nhạt."""
+    if random.choice([True, False]):  # Ngẫu nhiên chọn giữa hai dạng màu
+        # Tạo màu xám nhạt x,x,x
+        x = random.randint(233, 255)
+        background_color = (x, x, x)
+    else:
+        # Tạo màu vàng nhạt 255,255,y
+        y = random.randint(200, 255)
+        background_color = (255, 255, y)
+    
+    return background_color
+
 def generate_image(text, font_path, font_size, noise_level=0, text_color=(0, 0, 0), brightness_factor=1.0, contrast_factor=1.0, scale_factor=1.0):
     # Khởi tạo font
     try:
@@ -32,8 +45,10 @@ def generate_image(text, font_path, font_size, noise_level=0, text_color=(0, 0, 
     image_width = int(text_width * 1.1)  # Thêm khoảng trống 10%
     image_height = int(text_height * 3.0)  # Thêm khoảng trống 50%
 
-    # Tạo ảnh nền từ vàng nhạt đến trắng
-    background_color = (255, 255, 220)  # Màu vàng nhạt
+    # Sử dụng hàm random để chọn màu nền
+    background_color = generate_random_background_color()
+    
+    # Tạo ảnh nền với màu ngẫu nhiên
     image = Image.new('RGB', (image_width, image_height), color=background_color)
     draw = ImageDraw.Draw(image)
     
@@ -63,12 +78,12 @@ def random_parameters():
     # Sinh tham số ngẫu nhiên với khoảng giá trị mới
     fonts = ["arial.ttf", "times.ttf"]
     font_path = random.choice(fonts)
-    size = random.randint(24, 64)  # Kích thước chữ từ 30 đến 60
+    size = random.randint(8, 36)  # Kích thước chữ từ 24 đến 64
     color = tuple(random.randint(0, 50) for _ in range(3))  # Chữ từ xám nhẹ đến đen đậm
     brightness = round(random.uniform(0.9, 1.1), 2)  # Độ sáng từ 0.9 đến 1.1
     contrast = round(random.uniform(0.9, 1.1), 2)  # Độ tương phản từ 0.9 đến 1.1
     scale = round(random.uniform(0.8, 1.2), 2)  # Tỷ lệ thay đổi kích thước từ 0.8 đến 1.2
-    noise = round(random.uniform(0, 0.8), 2)  # Mức độ nhiễu từ 0 đến 1
+    noise = round(random.uniform(0, 0.5), 2)  # Mức độ nhiễu từ 0 đến 0.8
 
     return font_path, size, color, brightness, contrast, scale, noise
 
@@ -76,7 +91,7 @@ def process_text_file(input_file, output_dir):
     os.makedirs(output_dir, exist_ok=True)
 
     # Mở file txt ở chế độ append để ghi thêm thông tin mới mà không ghi đè
-    output_txt = os.path.join(output_dir, 'output_info.txt')
+    output_txt = os.path.join(output_dir, 'output_info1.txt')
     with open(output_txt, 'a', encoding='utf-8') as info_file:
 
         with open(input_file, 'r', encoding='utf-8') as file:
@@ -108,7 +123,7 @@ def process_text_file(input_file, output_dir):
             # Tạo tên file với mã MD5 kết hợp timestamp để đảm bảo duy nhất
             timestamp = str(int(time.time()))
             md5_hash = hashlib.md5((text + timestamp).encode()).hexdigest()
-            img_path = os.path.join(output_dir, f"{md5_hash}_{timestamp}.png")
+            img_path = os.path.join(output_dir, f"{md5_hash}_{timestamp}.png").replace('\\', '/')
 
             # Lưu ảnh và ghi thông tin vào file txt
             img.save(img_path)
@@ -116,7 +131,7 @@ def process_text_file(input_file, output_dir):
             print(f"Lưu ảnh: {img_path}")
 
 # Thay đổi thông số đầu vào
-input_file = 'input.txt'  # File văn bản đầu vào
+input_file = 'depluon.txt'  # File văn bản đầu vào
 output_dir = 'augmented_images'
 
 # Xử lý file văn bản và tạo ảnh

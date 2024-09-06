@@ -10,7 +10,7 @@ def process_text_file(input_file, output_file):
     :param output_file: Đường dẫn đến file văn bản đầu ra.
     """
     # Chọn giá trị max_length ngẫu nhiên từ 50 đến 150
-    max_length = random.randint(50, 60)
+    max_length = random.randint(90, 90)
     
     print(f"Số ký tự tối đa mỗi dòng: {max_length}")
 
@@ -59,8 +59,8 @@ def process_text_file(input_file, output_file):
             outfile.write(current_line + '\n')
 
 # Thay đổi thông số đầu vào
-input_file = '1.txt'  # Đảm bảo file này tồn tại tại đường dẫn này
-output_file = 'outed.txt'  # File văn bản đầu ra
+input_file = 'input.txt'  # Đảm bảo file này tồn tại tại đường dẫn này
+output_file = 'trafo2.txt'  # File văn bản đầu ra
 
 # Xử lý file văn bản
 process_text_file(input_file, output_file)

@@ -18,27 +18,6 @@ To enhance the accuracy of Text Recognition, images cropped by the DB algorithm 
 
 Text Recognition is the process of recognizing the text in an image or video. For Text Recognition part, you used [VietOCR](https://github.com/pbcquoc/vietocr), which is a popular framework for Vietnamese OCR task. It is based on Transformer OCR architecture. The Transformer OCR architecture is a combination of the CNN and Transformer models. The CNN model is used to extract features from the input image, while the Transformer model is used to recognize the text in the image. This architecture is known for its high accuracy and speed.
 
-# Usage
-
-Firstly, clone this repository by executing:
-
-```
-git clone https://github.com/bmd1905/vietnamese-ocr
-```
-
-After cloning the repository, download the required dependencies by running:
-
-```
-pip install -r requirement.txt
-```
-
-For command-line usage, execute the following script for inference:
-
-```
-python predict.py
-    --img path/to/image
-    --output path/of/output_image
-```
 
 For Jupyter Notebook, you can explore and experiment with the code at [predict.ipynb](https://github.com/bmd1905/vietnamese-ocr/blob/master/predict.ipynb).
 
